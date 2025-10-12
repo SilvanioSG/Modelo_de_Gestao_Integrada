@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelo de Gestão Integrada 360° — Silvanio Gois</title>
+  <style>
+    /* ------------------------------------------- */
+    /* Variáveis e Reset */
+    /* ------------------------------------------- */
+    :root{
+      --primary: #1f4f73;
+      --secondary: #3d79a7;
+      --accent: #00bcd4; /* Nova cor de destaque para fases */
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --muted: #6b7886;
+      --radius: 12px;
+      --max-width: 1100px;
+      --glass: rgba(255,255,255,0.7);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+
+    /* Ajuste para Preencher a Tela (Sticky Footer) */
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#eef3f8 60%);
+      color:#213041;
+      transition:background 0.4s ease;
+      min-height: 100vh; 
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 0 20px;
+      flex-grow: 1; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    main {
+        flex-grow: 1;
+        margin-top: 18px; 
+        display:grid;
+        grid-template-columns:1fr 360px;
+        gap:18px;
+        animation:fadeIn 0.8s ease forwards;
+        opacity:0
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Header */
+    header.top{
+      display:flex;gap:18px;align-items:center;background:var(--card);padding:18px;border-radius:16px;box-shadow:0 6px 18px rgba(15,23,42,0.06);transition:all 0.3s ease;
+    }
+    .avatar{
+      flex:0 0 110px;height:110px;border-radius:14px;overflow:hidden;border:4px solid var(--glass);background:linear-gradient(135deg,var(--glass),transparent);transition:transform 0.3s ease;
+    }
+    .avatar:hover{transform:scale(1.05)}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .head-info{flex:1}
+    .head-title{font-weight:700;color:var(--primary);font-size:18px;margin-bottom:6px}
+    .head-sub{font-size:13px;color:var(--muted);line-height:1.4}
+    .contact{margin-top:10px;font-size:13px}
+    .contact a{color:var(--primary);text-decoration:none;font-weight:600}
+
+    /* Main Panel - Melhoria de Sombra/Fundo */
+    .panel{
+      background: linear-gradient(180deg, var(--card) 90%, #fcfdfe); /* Sutil gradiente para profundidade */
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 8px 25px rgba(15,23,42,0.06); /* Sombra mais destacada */
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .panel:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(15,23,42,0.1)}
+    
+    .panel h3{
+        /* Destaque para o título do Mapa */
+        border-bottom: 2px solid var(--secondary);
+        padding-bottom: 5px;
+        margin-bottom: 18px !important;
+    }
+
+
+    /* Infográfico Simples */
+    .grid-areas{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px; 
+      margin-top:12px;
+      margin-bottom: 30px; /* Adiciona espaço antes do texto */
+      counter-reset: area-counter; 
+    }
+    
+    .area{
+      display: flex; 
+      padding:15px; 
+      border-radius:10px;
+      border:1px solid rgba(31,79,115,0.1); 
+      background: rgba(31,79,115,0.02); 
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+    .area:hover{
+        background:rgba(31,79,115,0.07);
+        transform:scale(1.01);
+        box-shadow: 0 4px 10px rgba(31,79,115,0.08);
+    }
+
+    .area-content {flex: 1;}
+    
+    .area::before {
+        counter-increment: area-counter; 
+        content: counter(area-counter); 
+        flex-shrink: 0; 
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: var(--card);
+        font-weight: 700;
+        font-size: 14px;
+        margin-right: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .area h4{margin:0 0 4px 0;color:var(--secondary);font-size:15px;font-weight: 600;}
+    .area p{margin:0;font-size:12px;color:var(--muted);}
+    
+    /* Bloco de Explicação */
+    .explanation-block {
+        margin-bottom: 30px; /* Adiciona margem inferior */
+        padding: 20px;
+        background-color: var(--bg);
+        border-radius: var(--radius);
+        border: 1px solid #e0e6ed;
+        color: #384555;
+        font-size: 14px;
+        line-height: 1.6;
+        box-shadow: inset 0 1px 3px rgba(15,23,42,0.05);
+    }
+    .explanation-block h4 {
+        margin-top: 0;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 16px;
+        border-bottom: 1px dashed #e0e6ed;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    /* Novo Bloco: Fases de Implementação */
+    .implementation-phases {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(31,79,115,0.1);
+    }
+    .phase-item {
+        text-align: center;
+        padding: 10px 5px;
+    }
+    .phase-item strong {
+        display: block;
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+    .phase-item span {
+        font-size: 12px;
+        color: var(--muted);
+    }
+    
+    /* Checklist - Melhoria no Hover */
+    .checklist li:hover{
+        background:rgba(31,79,115,0.08);
+        border-left: 3px solid var(--accent); /* Novo destaque de foco */
+        padding-left: 5px;
+    }
+
+    /* Footer (Mantido) */
+    footer{margin-top:20px;text-align:center;padding:14px;border-radius:10px;color:var(--muted);font-size:13px;background:var(--card);box-shadow:0 2px 10px rgba(15,23,42,0.03)}
+    footer a{color:var(--primary);font-weight:600;text-decoration:none}
+
+    /* Responsive */
+    @media (max-width:1100px) {
+        .container {padding: 0 20px;}
+    }
+    
+    @media (max-width:900px){
+        main{grid-template-columns:1fr}
+        .avatar{flex:0 0 88px;height:88px}
+        .container {margin-top: 15px; margin-bottom: 15px;}
+        .explanation-block {margin-top: 20px;}
+        .implementation-phases { grid-template-columns: repeat(2, 1fr); gap: 10px;} /* 2 colunas em mobile */
+    }
+    
+    @media (max-width:550px) {
+        .grid-areas {grid-template-columns: 1fr; gap: 12px;} 
+        .implementation-phases { grid-template-columns: 1fr; } /* 1 coluna em telas muito pequenas */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <div class="avatar">
+        <img src="Executivo_sg_projetos.png" alt="Silvanio Gois">
+      </div>
+
+      <div class="head-info">
+        <div class="head-title">Modelo de Gestão Integrada 360° — Silvanio Gois</div>
+        <div class="head-sub">Estrutura executiva de diagnóstico e planejamento que integra todas as dimensões do negócio — estratégia, operação, finanças, pessoas, reputação, governança, política, socioambiental e inovação.</div>
+        <div class="contact">
+            <strong style="color:var(--primary)">Gestão Estratégica e Desenvolvimento Organizacional</strong> 
+            <span style="display:block; font-size:12px; color:var(--secondary);">Metodologia desenvolvida com foco em visão holística e análise de riscos.</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h3 style="margin-top:0;color:var(--primary)">Estrutura 360°: Mapa de Visão Integrada do Negócio</h3>
+        <p style="color:var(--muted);margin-top:6px;">Cada bloco representa um eixo estratégico fundamental. A integração e a análise da interdependência entre essas 10 áreas garantem uma visão holística, sustentável e completa do negócio.</p>
+
+        <div class="grid-areas">
+          <div class="area"><div class="area-content"><h4>Estratégia</h4><p>Propósito, visão, diferenciais e fatores críticos de sucesso.</p></div></div>
+          <div class="area"><div class="area-content"><h4>Operações</h4><p>Processos, tecnologia, logística, qualidade e melhoria contínua.</p></div></div>
+
+          <div class="area"><div class="area-content"><h4>Finanças</h4><p>Fluxo de caixa, margens, investimentos, controles e sustentabilidade financeira.</p></div></div>
+          <div class="area"><div class="area-content"><h4>Pessoas</h4><p>Cultura, liderança, engajamento, retenção e desenvolvimento contínuo.</p></div></div>
+
+          <div class="area"><div class="area-content"><h4>Comunicação e Reputação</h4><p>Marca, narrativa institucional, gestão de crise e relacionamento com stakeholders.</p></div></div>
+          <div class="area"><div class="area-content"><h4>Socioambiental</h4><p>Sustentabilidade, licenças, impactos, responsabilidade corporativa e ESG.</p></div></div>
+
+          <div class="area"><div class="area-content"><h4>Jurídico & Compliance</h4><p>Governança, conformidade, contratos e mitigação de riscos legais.</p></div></div>
+          <div class="area"><div class="area-content"><h4>Político-Institucional</h4><p>Relacionamento com governo, entidades e monitoramento regulatório.</p></div></div>
+
+          <div class="area"><div class="area-content"><h4>Inovação e Tecnologia</h4><p>Pesquisa, digitalização, segurança da informação e disrupção estratégica.</p></div></div>
+          <div class="area"><div class="area-content"><h4>Integração de KPIs</h4><p>Indicadores interligados, dashboards executivos e governança de resultados.</p></div></div>
+        </div>
+        
+        <div class="explanation-block">
+            <h4>Por que este Modelo 360° é Essencial para o Seu Negócio?</h4>
+            <p>Em minha experiência, percebi que a falha em muitos planos não está na falta de esforço, mas na **visão incompleta**. É comum focar demais em Vendas e Operações, por exemplo, e negligenciar a Governança ou a Reputação. O que este Mapa 360° propõe é justamente quebrar esses silos. Não se trata de uma lista estática, mas de um **ecossistema onde tudo se conecta**.</p>
+            
+            <p>Seja você um empreendedor em crescimento ou um executivo de uma grande corporação, a metodologia é a mesma: **identificar interdependências**. A fragilidade em 'Socioambiental' pode gerar um risco de reputação (área 5) que impacta diretamente suas 'Finanças' (área 3). Ao analisar as 10 áreas de forma integrada, você não apenas resolve problemas, mas constrói um negócio mais resiliente, escalável e com fundamentos sólidos para o futuro.</p>
+            
+            <p style="margin-bottom: 0;">É uma forma de garantir que, em cada passo estratégico, você está vendo o tabuleiro completo. Isso é gestão moderna e sustentável.</p>
+        </div>
+        
+        <div>
+            <h4 style="color:var(--primary); font-size:16px; margin-bottom: 15px;">Fases de Aplicação do Método</h4>
+            <div class="implementation-phases">
+                <div class="phase-item"><strong>1. Diagnóstico</strong><span>Coleta de dados e entrevistas nas 10 áreas.</span></div>
+                <div class="phase-item"><strong>2. Planejamento</strong><span>Definição de objetivos (OKRs/KPIs) e ações.</span></div>
+                <div class="phase-item"><strong>3. Execução</strong><span>Implementação das ações e ajustes operacionais.</span></div>
+                <div class="phase-item"><strong>4. Monitoramento</strong><span>Revisões periódicas e governança de resultados.</span></div>
+            </div>
+        </div>
+
+      </section>
+
+      <aside class="panel checklist">
+        <h4 style="margin-top:0;color:var(--primary)">Checklist 360° — Avaliação Estratégica</h4>
+        <ul style="margin-top:12px">
+          <li><strong>Diagnóstico 360°</strong><span> — Entrevistas, dados e indicadores em todas as 10 áreas principais.</span></li>
+          <li><strong>Estratégia e Propósito</strong><span> — Clareza da missão, visão e diferenciais competitivos.</span></li>
+          <li><strong>Operações e Processos</strong><span> — Padronização, eficiência e melhoria contínua.</span></li>
+          <li><strong>Finanças</strong><span> — Projeções, margem, liquidez e plano de contingência.</span></li>
+          <li><strong>Pessoas e Cultura</strong><span> — Competências, engajamento e sucessão.</span></li>
+          <li><strong>Comunicação e Reputação</strong><span> — Coerência de mensagens e monitoramento de imagem pública.</span></li>
+          <li><strong>Governança e Compliance</strong><span> — Estrutura decisória, políticas internas e conformidade legal.</span></li>
+          <li><strong>Socioambiental</strong><span> — Ações ESG, gestão de impacto e transparência de resultados.</span></li>
+          <li><strong>Político-Institucional</strong><span> — Engajamento ético com governo e associações setoriais.</span></li>
+          <li><strong>Inovação e Tecnologia</strong><span> — Adoção digital, proteção de dados e investimento em P&D.</span></li>
+          <li><strong>Gestão de Riscos</strong><span> — Identificação, priorização e planos de continuidade operacional.</span></li>
+          <li><strong>Experiência do Cliente e Mercado</strong><span> — Jornada, NPS e diferenciação competitiva.</span></li>
+          <li><strong>Segurança da Informação</strong><span> — Backups, políticas de acesso e prevenção a incidentes.</span></li>
+          <li><strong>Ética e Transparência</strong><span> — Práticas internas, compliance moral e alinhamento institucional.</span></li>
+          <li><strong>Integração de KPIs</strong><span> — Indicadores interligados e revisões trimestrais.</span></li>
+        </ul>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:13px">A aplicação contínua deste checklist garante visão ampla, governança sólida e decisões sustentáveis em qualquer porte de negócio.</div>
+      </aside>
+    </main>
+
+    <footer>
+      © 2025 Silvanio Gois — Todos os direitos reservados | <a href="https://www.silvaniogois.com.br" target="_blank" rel="noopener">Retornar ao site</a>
+    </footer>
+  </div>
+</body>
+</html>
