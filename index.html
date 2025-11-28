@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Modelo de Gestão Integrada 360° — Silvanio Gois</title>
+  <title>Framework de Gestão Integrada 360° — Silvanio Gois</title>
   <style>
-    /* ------------------------------------------- */
-    /* Variáveis e Reset */
-    /* ------------------------------------------- */
     :root{
       --primary: #1f4f73;
       --secondary: #3d79a7;
-      --accent: #00bcd4; /* Nova cor de destaque para fases */
+      --accent: #00bcd4;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --danger: #e74c3c;
       --bg: #f5f7fa;
       --card: #ffffff;
       --muted: #6b7886;
       --radius: 12px;
-      --max-width: 1100px;
+      --max-width: 1200px;
       --glass: rgba(255,255,255,0.7);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    *{box-sizing:border-box}
-    /* Ajuste para Preencher a Tela (Sticky Footer) */
+    *{box-sizing:border-box; margin:0; padding:0;}
+    
     body{
       margin:0;
       background:linear-gradient(180deg,var(--bg),#eef3f8 60%);
@@ -31,67 +31,96 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
+    
     .container {
       max-width: var(--max-width);
       margin: 28px auto;
-      padding: 0 20px;
+      padding: 0 24px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      width: 100%;
     }
+    
     main {
         flex-grow: 1;
         margin-top: 18px;
         display:grid;
-        grid-template-columns:1fr 360px;
-        gap:18px;
+        grid-template-columns: minmax(0, 1fr) 380px;
+        gap:24px;
         animation:fadeIn 0.8s ease forwards;
-        opacity:0
+        opacity:0;
+        width: 100%;
+        align-items: start;
     }
+    
     @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    /* Header */
     header.top{
-      display:flex;gap:18px;align-items:center;background:var(--card);padding:18px;border-radius:16px;box-shadow:0 6px 18px rgba(15,23,42,0.06);transition:all 0.3s ease;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      background:var(--card);
+      padding:20px;
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(15,23,42,0.06);
+      transition:all 0.3s ease;
+      width: 100%;
+      max-width: 100%;
     }
+    
     .avatar{
-      flex:0 0 110px;height:110px;border-radius:14px;overflow:hidden;border:4px solid var(--glass);background:linear-gradient(135deg,var(--glass),transparent);transition:transform 0.3s ease;
+      flex:0 0 110px;
+      height:110px;
+      border-radius:14px;
+      overflow:hidden;
+      border:4px solid var(--glass);
+      background:linear-gradient(135deg,var(--glass),transparent);
+      transition:transform 0.3s ease;
     }
+    
     .avatar:hover{transform:scale(1.05)}
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
-    .head-info{flex:1}
+    .head-info{flex:1; min-width: 0;}
     .head-title{font-weight:700;color:var(--primary);font-size:18px;margin-bottom:6px}
     .head-sub{font-size:13px;color:var(--muted);line-height:1.4}
     .contact{margin-top:10px;font-size:13px}
     .contact a{color:var(--primary);text-decoration:none;font-weight:600}
 
-    /* Main Panel - Melhoria de Sombra/Fundo */
     .panel{
-      background: linear-gradient(180deg, var(--card) 90%, #fcfdfe); /* Sutil gradiente para profundidade */
-      padding:18px;
+      background: linear-gradient(180deg, var(--card) 90%, #fcfdfe);
+      padding:24px;
       border-radius:12px;
-      box-shadow:0 8px 25px rgba(15,23,42,0.06); /* Sombra mais destacada */
+      box-shadow:0 8px 25px rgba(15,23,42,0.06);
       transition:transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
+    
     .panel:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(15,23,42,0.1)}
 
     .panel h3{
-        /* Destaque para o título do Mapa */
         border-bottom: 2px solid var(--secondary);
-        padding-bottom: 5px;
+        padding-bottom: 8px;
         margin-bottom: 18px !important;
+        color: var(--primary);
+        word-wrap: break-word;
     }
 
-    /* Infográfico Simples */
     .grid-areas{
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:18px;
       margin-top:12px;
-      margin-bottom: 30px; /* Adiciona espaço antes do texto */
+      margin-bottom: 30px;
       counter-reset: area-counter;
+      width: 100%;
      }
 
     .area{
@@ -102,6 +131,8 @@
       background: rgba(31,79,115,0.02);
       transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
       position: relative;
+      min-height: 80px;
+      align-items: flex-start;
     }
 
     .area:hover{
@@ -109,7 +140,8 @@
         transform:scale(1.01);
         box-shadow: 0 4px 10px rgba(31,79,115,0.08);
     }
-    .area-content {flex: 1;}
+    
+    .area-content {flex: 1; min-width: 0;}
 
     .area::before {
         counter-increment: area-counter;
@@ -128,12 +160,23 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .area h4{margin:0 0 4px 0;color:var(--secondary);font-size:15px;font-weight: 600;}
-    .area p{margin:0;font-size:12px;color:var(--muted);}
+    .area h4{
+      margin:0 0 4px 0;
+      color:var(--secondary);
+      font-size:15px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    
+    .area p{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+      line-height: 1.4;
+    }
 
-    /* Bloco de Explicação */
     .explanation-block {
-        margin-bottom: 30px; /* Adiciona margem inferior */
+        margin-bottom: 30px;
         padding: 20px;
         background-color: var(--bg);
         border-radius: var(--radius);
@@ -142,7 +185,9 @@
         font-size: 14px;
         line-height: 1.6;
         box-shadow: inset 0 1px 3px rgba(15,23,42,0.05);
+        width: 100%;
     }
+    
     .explanation-block h4 {
         margin-top: 0;
         color: var(--primary);
@@ -153,18 +198,16 @@
         margin-bottom: 15px;
     }
 
-    /* Estilo para substituir os ** no texto de explicação */
     .explanation-block p strong {
-        color: var(--primary); /* Usa a cor primária para destaque */
+        color: var(--primary);
         font-weight: 700;
-        background-color: rgba(31, 79, 115, 0.05); /* Um leve fundo para realce */
+        background-color: rgba(31, 79, 115, 0.05);
         padding: 2px 4px;
         border-radius: 4px;
-        line-height: 1.8; /* Garante que o fundo não 'quebre' a linha */
+        line-height: 1.8;
         display: inline-block;
     }
 
-    /* Novo Bloco: Fases de Implementação */
     .implementation-phases {
         margin-top: 30px;
         display: grid;
@@ -172,50 +215,522 @@
         gap: 15px;
         padding-top: 15px;
         border-top: 1px solid rgba(31,79,115,0.1);
+        width: 100%;
     }
+    
     .phase-item {
         text-align: center;
         padding: 10px 5px;
+        min-width: 0;
     }
+    
     .phase-item strong {
         display: block;
         color: var(--accent);
         font-size: 14px;
         font-weight: 700;
         margin-bottom: 4px;
+        line-height: 1.3;
     }
+    
     .phase-item span {
         font-size: 12px;
         color: var(--muted);
+        line-height: 1.3;
+        display: block;
     }
 
-    /* Checklist - Melhoria no Hover */
+    /* CHECKLIST ORIGINAL RESTAURADO */
+    .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    
+    .checklist li{
+      transition: all 0.2s ease;
+      padding: 12px 8px;
+      border-left: 3px solid transparent;
+      line-height: 1.4;
+      border-bottom: 1px solid rgba(31,79,115,0.05);
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .checklist li:last-child {
+        border-bottom: none;
+    }
+    
     .checklist li:hover{
         background:rgba(31,79,115,0.08);
-        border-left: 3px solid var(--accent); /* Novo destaque de foco */
-        padding-left: 5px;
+        border-left: 3px solid var(--accent);
+        padding-left: 12px;
+    }
+    
+    .checklist li strong {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 2px;
+    }
+    
+    .checklist li span {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+        display: block;
     }
 
-    /* Footer (Mantido) */
-    footer{margin-top:20px;text-align:center;padding:14px;border-radius:10px;color:var(--muted);font-size:13px;background:var(--card);box-shadow:0 2px 10px rgba(15,23,42,0.03)}
-    footer a{color:var(--primary);font-weight:600;text-decoration:none}
-
-    /* Responsive */
-    @media (max-width:1100px) {
-        .container {padding: 0 20px;}
+    .theoretical-foundations {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+        width: 100%;
+    }
+    
+    .foundation-card {
+        background: var(--bg);
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid var(--secondary);
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .foundation-card h5 {
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.3;
+    }
+    
+    .foundation-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.4;
+        margin-bottom: 8px;
+    }
+    
+    .tools-section {
+        margin: 25px 0;
+        width: 100%;
+    }
+    
+    .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 15px;
+        width: 100%;
+    }
+    
+    .tool-card {
+        background: var(--card);
+        border: 1px solid rgba(31,79,115,0.1);
+        border-radius: 8px;
+        padding: 15px;
+        transition: all 0.3s ease;
+        min-height: 160px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .tool-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .tool-card h5 {
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        line-height: 1.3;
+    }
+    
+    .tool-card h5:before {
+        content: "✓";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background: var(--success);
+        color: white;
+        border-radius: 50%;
+        margin-right: 8px;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+    
+    .tool-card p {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 10px;
+        line-height: 1.4;
+        flex-grow: 1;
+    }
+    
+    .tool-card ul {
+        font-size: 12px;
+        color: var(--muted);
+        padding-left: 20px;
+        line-height: 1.4;
+        margin: 0;
     }
 
-    @media (max-width:900px){
-        main{grid-template-columns:1fr}
-        .avatar{flex:0 0 88px;height:88px}
-        .container {margin-top: 15px; margin-bottom: 15px;}
-        .explanation-block {margin-top: 20px;}
-        .implementation-phases { grid-template-columns: repeat(2, 1fr); gap: 10px;} /* 2 colunas em mobile */
+    /* NOVO: Sistema de Interdependência */
+    .interdependence-system {
+        margin: 25px 0;
+        background: var(--bg);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(31,79,115,0.1);
+        width: 100%;
+    }
+    
+    .dependency-matrix {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .dependency-item {
+        background: var(--card);
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(31,79,115,0.1);
+        text-align: center;
+        font-size: 12px;
+    }
+    
+    .dependency-item.strong {
+        background: rgba(231, 76, 60, 0.1);
+        border-color: rgba(231, 76, 60, 0.3);
+    }
+    
+    .dependency-item.medium {
+        background: rgba(243, 156, 18, 0.1);
+        border-color: rgba(243, 156, 18, 0.3);
+    }
+    
+    .dependency-item.weak {
+        background: rgba(46, 204, 113, 0.1);
+        border-color: rgba(46, 204, 113, 0.3);
+    }
+    
+    .maturity-model {
+        margin: 25px 0;
+        background: var(--bg);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(31,79,115,0.1);
+        width: 100%;
+    }
+    
+    .maturity-levels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        position: relative;
+        width: 100%;
+    }
+    
+    .maturity-levels:before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--danger), var(--warning), var(--success));
+        border-radius: 2px;
+    }
+    
+    .level {
+        text-align: center;
+        width: 23%;
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+    }
+    
+    .level:before {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--card);
+        border: 3px solid;
+        margin: 0 auto 10px;
+    }
+    
+    .level:nth-child(1):before { border-color: var(--danger); }
+    .level:nth-child(2):before { border-color: var(--warning); }
+    .level:nth-child(3):before { border-color: var(--success); background: var(--success); }
+    .level:nth-child(4):before { border-color: var(--success); background: var(--success); }
+    
+    .level strong {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+    
+    .level span {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.2;
+        display: block;
+    }
+    
+    .part-title {
+      grid-column: 1 / -1;
+      color: var(--primary);
+      font-size: 20px;
+      margin: 30px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--secondary);
+      text-align: center;
+      font-weight: 700;
+      width: 100%;
+    }
+    
+    .full-width {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+    
+    footer{
+        margin-top:20px;
+        text-align:center;
+        padding:14px;
+        border-radius:10px;
+        color:var(--muted);
+        font-size:13px;
+        background:var(--card);
+        box-shadow:0 2px 10px rgba(15,23,42,0.03);
+        width: 100%;
+    }
+    
+    footer a{
+        color:var(--primary);
+        font-weight:600;
+        text-decoration:none
     }
 
-    @media (max-width:550px) {
-        .grid-areas {grid-template-columns: 1fr; gap: 12px;}
-        .implementation-phases { grid-template-columns: 1fr; } /* 1 coluna em telas muito pequenas */
+    .tag {
+        display: inline-block;
+        background: rgba(0,188,212,0.1);
+        color: var(--accent);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+    
+    .checklist-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .checklist-note {
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(31,79,115,0.05);
+        border-radius: 8px;
+        border-left: 4px solid var(--accent);
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+    }
+
+    .checklist-note strong {
+        color: var(--primary);
+    }
+
+    /* NOVO: Ciclo de Melhoria Contínua */
+    .continuous-improvement {
+        margin: 25px 0;
+        text-align: center;
+    }
+    
+    .improvement-cycle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        position: relative;
+    }
+    
+    .cycle-step {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--card);
+        border: 3px solid var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--primary);
+        position: relative;
+        z-index: 2;
+        margin: 0 15px;
+    }
+    
+    .cycle-arrow {
+        color: var(--accent);
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    /* ========================================== */
+    /* CORREÇÕES ESPECÍFICAS PARA DESKTOP */
+    /* ========================================== */
+
+    .main-content {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    aside {
+        width: 100%;
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: sticky;
+        top: 20px;
+        align-self: start;
+    }
+
+    .container, main, .panel, .grid-areas, .theoretical-foundations, 
+    .tool-grid, .checklist-grid {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    .area h4, .area p, .tool-card h5, .tool-card p, 
+    .foundation-card h5, .foundation-card p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* ========================================== */
+    /* RESPONSIVIDADE */
+    /* ========================================== */
+
+    @media (max-width: 1024px) {
+        .container {
+            padding: 0 20px;
+        }
+        
+        main {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        aside {
+            max-width: 100%;
+            position: static;
+        }
+        
+        .checklist-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .dependency-matrix {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .improvement-cycle {
+            flex-wrap: wrap;
+        }
+        
+        .cycle-step {
+            margin: 10px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 16px;
+        }
+        
+        .grid-areas,
+        .theoretical-foundations,
+        .tool-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .implementation-phases {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .maturity-levels {
+            flex-wrap: wrap;
+        }
+        
+        .level {
+            width: 48%;
+            margin-bottom: 15px;
+        }
+        
+        .dependency-matrix {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 12px;
+        }
+        
+        .implementation-phases {
+            grid-template-columns: 1fr;
+        }
+        
+        .level {
+            width: 100%;
+        }
+        
+        header.top {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .avatar {
+            align-self: center;
+        }
+        
+        .checklist li {
+            padding: 10px 6px;
+        }
+        
+        .cycle-step {
+            width: 60px;
+            height: 60px;
+            font-size: 10px;
+        }
     }
   </style>
 </head>
@@ -227,71 +742,257 @@
       </div>
 
       <div class="head-info">
-        <div class="head-title">Modelo de Gestão Integrada 360° — Silvanio Gois</div>
-        <div class="head-sub">Estrutura executiva de diagnóstico e planejamento que integra todas as dimensões do negócio — estratégia, operação, finanças, pessoas, reputação, governança, política, socioambiental e inovação.</div>
+        <div class="head-title">Framework de Gestão Integrada 360° — Silvanio Gois</div>
+        <div class="head-sub">Sistema executivo completo de diagnóstico, planejamento e gestão que integra todas as dimensões do negócio com ferramentas práticas de implementação.</div>
         <div class="contact">
             <strong style="color:var(--primary)">Gestão Estratégica e Desenvolvimento Organizacional</strong>
-            <span style="display:block; font-size:12px; color:var(--secondary);">Metodologia desenvolvida com foco em visão holística e análise de riscos.</span>
+            <span style="display:block; font-size:12px; color:var(--secondary);">Metodologia validada com foco em visão holística, análise de riscos e resultados sustentáveis.</span>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="panel">
-        <h3 style="margin-top:0;color:var(--primary)">Estrutura 360°: Mapa de Visão Integrada do Negócio</h3>
-        <p style="color:var(--muted);margin-top:6px;">Cada bloco representa um eixo estratégico fundamental. A integração e a análise da interdependência entre essas 10 áreas garantem uma visão holística, sustentável e completa do negócio.</p>
-
-        <div class="grid-areas">
-          <div class="area"><div class="area-content"><h4>Estratégia</h4><p>Propósito, visão, diferenciais e fatores críticos de sucesso.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Operações</h4><p>Processos, tecnologia, logística, qualidade e melhoria contínua.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Finanças</h4><p>Fluxo de caixa, margens, investimentos, controles e sustentabilidade financeira.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Pessoas</h4><p>Cultura, liderança, engajamento, retenção e desenvolvimento contínuo.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Comunicação e Reputação</h4><p>Marca, narrativa institucional, gestão de crise e relacionamento com stakeholders.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Socioambiental</h4><p>Sustentabilidade, licenças, impactos, responsabilidade corporativa e ESG.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Jurídico & Compliance</h4><p>Governança, conformidade, contratos e mitigação de riscos legais.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Político-Institucional</h4><p>Relacionamento com governo, entidades e monitoramento regulatório.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Inovação e Tecnologia</h4><p>Pesquisa, digitalização, segurança da informação e disrupção estratégica.</p></div></div>
-          <div class="area"><div class="area-content"><h4>Integração de KPIs</h4><p>Indicadores interligados, dashboards executivos e governança de resultados.</p></div></div>
-        </div>
-
-        <div class="explanation-block">
-            <h4>Por que este Modelo 360° é Essencial para o Seu Negócio?</h4>
-            <p>Em minha experiência, percebi que a falha em muitos planos não está na falta de esforço, mas na <strong>visão incompleta</strong>. É comum focar demais em Vendas e Operações, por exemplo, e negligenciar a Governança ou a Reputação. O que este Mapa 360° propõe é justamente quebrar esses silos. Não se trata de uma lista estática, mas de um <strong>ecossistema onde tudo se conecta</strong>.</p>
-            <p>Seja você um empreendedor em crescimento ou um executivo de uma grande corporação, a metodologia é a mesma: <strong>identificar interdependências</strong>. A fragilidade em 'Socioambiental' pode gerar um risco de reputação (área 5) que impacta diretamente suas 'Finanças' (área 3). Ao analisar as 10 áreas de forma integrada, você não apenas resolve problemas, mas constrói um negócio mais resiliente, escalável e com fundamentos sólidos para o futuro.</p>
-            <p style="margin-bottom: 0;">É uma forma de garantir que, em cada passo estratégico, você está vendo o tabuleiro completo. Isso é gestão moderna e sustentável.</p>
-        </div>
-
-        <div>
-            <h4 style="color:var(--primary); font-size:16px; margin-bottom: 15px;">Fases de Aplicação do Método</h4>
-            <div class="implementation-phases">
-                <div class="phase-item"><strong>1. Diagnóstico</strong><span>Coleta de dados e entrevistas nas 10 áreas.</span></div>
-                <div class="phase-item"><strong>2. Planejamento</strong><span>Definição de objetivos (OKRs/KPIs) e ações.</span></div>
-                <div class="phase-item"><strong>3. Execução</strong><span>Implementação das ações e ajustes operacionais.</span></div>
-                <div class="phase-item"><strong>4. Monitoramento</strong><span>Revisões periódicas e governança de resultados.</span></div>
+      <div class="main-content">
+        <!-- PARTE 1: FUNDAMENTOS -->
+        <div class="part-title">PARTE 1: FUNDAMENTOS DO FRAMEWORK 360°</div>
+        
+        <!-- Seção 1: Fundamentação Teórica -->
+        <div class="panel">
+          <h3>O que é Realmente um Framework 360°?</h3>
+          <p style="color:var(--muted);margin-top:6px;">Diferente de abordagens tradicionais, um verdadeiro framework 360° entende a organização como um ecossistema vivo e interconectado.</p>
+          
+          <div class="theoretical-foundations">
+            <div class="foundation-card">
+              <h5>Visão Sistêmica</h5>
+              <p>Não é sobre checklist, mas sobre entender como cada decisão reverbera em todo o sistema organizacional.</p>
             </div>
+            <div class="foundation-card">
+              <h5>Interdependência Dinâmica</h5>
+              <p>As conexões entre áreas são fluidas e se modificam conforme o contexto e momento do negócio.</p>
+            </div>
+            <div class="foundation-card">
+              <h5>Circularidade</h5>
+              <p>O processo é contínuo e iterativo, onde o fim alimenta o início em ciclos de melhoria.</p>
+            </div>
+            <div class="foundation-card">
+              <h5>Adaptabilidade</h5>
+              <p>O framework se molda à realidade da organização, não o contrário.</p>
+            </div>
+          </div>
         </div>
-      </section>
 
-      <aside class="panel checklist">
-        <h4 style="margin-top:0;color:var(--primary)">Checklist 360° — Avaliação Estratégica</h4>
-        <ul style="margin-top:12px">
-          <li><strong>Diagnóstico 360°</strong><span> — Entrevistas, dados e indicadores em todas as 10 áreas principais.</span></li>
-          <li><strong>Estratégia e Propósito</strong><span> — Clareza da missão, visão e diferenciais competitivos.</span></li>
-          <li><strong>Operações e Processos</strong><span> — Padronização, eficiência e melhoria contínua.</span></li>
-          <li><strong>Finanças</strong><span> — Projeções, margem, liquidez e plano de contingência.</span></li>
-          <li><strong>Pessoas e Cultura</strong><span> — Competências, engajamento e sucessão.</span></li>
-          <li><strong>Comunicação e Reputação</strong><span> — Coerência de mensagens e monitoramento de imagem pública.</span></li>
-          <li><strong>Governança e Compliance</strong><span> — Estrutura decisória, políticas internas e conformidade legal.</span></li>
-          <li><strong>Socioambiental</strong><span> — Ações ESG (Environmental, Social and Governance), gestão de impacto e transparência de resultados.</span></li>
-          <li><strong>Político-Institucional</strong><span> — Engajamento ético com governo e associações setoriais.</span></li>
-          <li><strong>Inovação e Tecnologia</strong><span> — Adoção digital, proteção de dados e investimento em P&D (Pesquisa e Desenvolvimento).</span></li>
-          <li><strong>Gestão de Riscos</strong><span> — Identificação, priorização e planos de continuidade operacional.</span></li>
-          <li><strong>Experiência do Cliente e Mercado</strong><span> — Jornada, NPS (Net Promoter Score: Métrica usada para medir a lealdade do cliente e sua satisfação geral em relação à marca) e diferenciação competitiva.</span></li>
-          <li><strong>Segurança da Informação</strong><span> — Backups, políticas de acesso e prevenção a incidentes.</span></li>
-          <li><strong>Ética e Transparência</strong><span> — Práticas internas, compliance moral e alinhamento institucional.</span></li>
-          <li><strong>Integração de KPIs</strong><span> — Indicadores interligados e revisões trimestrais.</span></li>
-        </ul>
-        <div style="margin-top:16px;color:var(--muted);font-size:13px">A aplicação contínua deste checklist garante visão ampla, governança sólida e decisões sustentáveis em qualquer porte de negócio.</div>
+        <!-- Seção 2: Mapa 360° -->
+        <div class="panel">
+          <h3>Mapa de Interdependência 360°</h3>
+          <p style="color:var(--muted);margin-top:6px;">As 10 dimensões não existem isoladamente - elas se influenciam mutuamente em um sistema complexo.</p>
+
+          <div class="grid-areas">
+            <div class="area"><div class="area-content"><h4>Propósito e Estratégia</h4><p>Não apenas "o que fazemos", mas "por que existimos" e como isso orienta todas as decisões.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Operações e Processos</h4><p>A materialização da estratégia no dia a dia, com foco em eficiência e experiência.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Vitalidade Financeira</h4><p>Saúde econômica como resultado das outras áreas, não como objetivo isolado.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Pessoas e Cultura</h4><p>O capital humano que dá vida à estratégia e operações.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Reputação e Relacionamentos</h4><p>Como somos percebidos e nos relacionamos com todos os stakeholders.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Impacto Socioambiental</h4><p>Nossa pegada no mundo e responsabilidade com as gerações futuras.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Conformidade e Governança</h4><p>As regras do jogo que garantem sustentabilidade e ética.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Contexto Político-Institucional</h4><p>O ecossistema externo que influencia e é influenciado pela organização.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Inovação e Adaptação</h4><p>Capacidade de evoluir e se reinventar em um mundo em transformação.</p></div></div>
+            <div class="area"><div class="area-content"><h4>Medição e Aprendizado</h4><p>Sistema de feedback que alimenta a evolução contínua.</p></div></div>
+          </div>
+
+          <!-- NOVO: Sistema de Interdependência -->
+          <div class="interdependence-system">
+            <h4 style="color:var(--primary); margin-bottom: 15px;">Matriz de Interdependência Crítica</h4>
+            <p style="font-size: 13px; color: var(--muted); margin-bottom: 15px;">Exemplos de como as áreas se conectam na prática:</p>
+            
+            <div class="dependency-matrix">
+              <div class="dependency-item strong">
+                <strong>Estratégia → Pessoas</strong>
+                <div style="font-size: 11px; margin-top: 5px;">A estratégia define as competências necessárias</div>
+              </div>
+              <div class="dependency-item medium">
+                <strong>Operações → Financeiro</strong>
+                <div style="font-size: 11px; margin-top: 5px;">Eficiência operacional impacta custos e margens</div>
+              </div>
+              <div class="dependency-item strong">
+                <strong>Reputação → Valor</strong>
+                <div style="font-size: 11px; margin-top: 5px;">A reputação afeta diretamente a valuation</div>
+              </div>
+              <div class="dependency-item weak">
+                <strong>Governança → Sustentabilidade</strong>
+                <div style="font-size: 11px; margin-top: 5px;">Boa governança previne crises e garante longevidade</div>
+              </div>
+              <div class="dependency-item medium">
+                <strong>Inovação → Competitividade</strong>
+                <div style="font-size: 11px; margin-top: 5px;">Inovação sustenta vantagem competitiva</div>
+              </div>
+              <div class="dependency-item strong">
+                <strong>Pessoas → Inovação</strong>
+                <div style="font-size: 11px; margin-top: 5px;">Talentes motivados são fonte de inovação</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PARTE 2: OPERACIONALIZAÇÃO -->
+        <div class="part-title">PARTE 2: O CICLO 360° DE GESTÃO</div>
+
+        <!-- Seção 3: Ferramentas de Implementação -->
+        <div class="panel">
+          <h3>Ferramentas para uma Gestão Verdadeiramente 360°</h3>
+          <p style="color:var(--muted);margin-top:6px;">Instrumentos que capturam a complexidade e interdependência do negócio.</p>
+          
+          <div class="tools-section">
+            <div class="tool-grid">
+              <div class="tool-card">
+                <h5>Mapa de Impacto Cruzado</h5>
+                <p>Visualiza como decisões em uma área afetam todas as outras.</p>
+                <ul>
+                  <li>Análise de efeitos em cascata</li>
+                  <li>Identificação de pontos de alavancagem</li>
+                  <li>Previsão de consequências não óbvias</li>
+                </ul>
+              </div>
+              <div class="tool-card">
+                <h5>Dashboard de Interdependência</h5>
+                <p>Monitora as conexões críticas entre áreas em tempo real.</p>
+                <ul>
+                  <li>Indicadores de tensão entre áreas</li>
+                  <li>Alertas de desalinhamento</li>
+                  <li>Métricas de sinergia organizacional</li>
+                </ul>
+              </div>
+              <div class="tool-card">
+                <h5>Simulador de Decisões 360°</h5>
+                <p>Testa o impacto de decisões antes da implementação.</p>
+                <ul>
+                  <li>Modelagem de cenários</li>
+                  <li>Análise de trade-offs</li>
+                  <li>Previsão de efeitos colaterais</li>
+                </ul>
+              </div>
+              <div class="tool-card">
+                <h5>Sistema de Feedback Circular</h5>
+                <p>Garante que aprendizados alimentem a evolução contínua.</p>
+                <ul>
+                  <li>Mecanismos de retroalimentação</li>
+                  <li>Ciclos de aprendizado organizacional</li>
+                  <li>Adaptação dinâmica</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção 4: Ciclo de Melhoria Contínua -->
+        <div class="panel">
+          <h3>O Ciclo 360° de Melhoria Contínua</h3>
+          <p style="color:var(--muted);margin-top:6px;">Processo iterativo que transforma insights em evolução organizacional.</p>
+          
+          <div class="continuous-improvement">
+            <div class="improvement-cycle">
+              <div class="cycle-step">Diagnóstico<br>Integrado</div>
+              <div class="cycle-arrow">→</div>
+              <div class="cycle-step">Análise de<br>Interdependências</div>
+              <div class="cycle-arrow">→</div>
+              <div class="cycle-step">Decisão<br>Sistêmica</div>
+              <div class="cycle-arrow">→</div>
+              <div class="cycle-step">Implementação<br>Coordenada</div>
+              <div class="cycle-arrow">→</div>
+              <div class="cycle-step">Avaliação<br>360°</div>
+            </div>
+          </div>
+          
+          <div class="implementation-phases">
+            <div class="phase-item"><strong>1. Ver</strong><span>Compreender o sistema como um todo</span></div>
+            <div class="phase-item"><strong>2. Conectar</strong><span>Mapear interdependências críticas</span></div>
+            <div class="phase-item"><strong>3. Decidir</strong><span>Escolher considerando impactos sistêmicos</span></div>
+            <div class="phase-item"><strong>4. Agir</strong><span>Implementar de forma coordenada</span></div>
+            <div class="phase-item"><strong>5. Aprender</strong><span>Coletar feedback e refinar</span></div>
+          </div>
+        </div>
+
+        <!-- PARTE 3: EXECUÇÃO -->
+        <div class="part-title">PARTE 3: CHECKLIST 360° - DA TEORIA À PRÁTICA</div>
+
+        <!-- Seção 5: Checklist 360° COMPLETO -->
+        <div class="panel full-width">
+          <h3>Checklist 360° — Verificação de Integralidade</h3>
+          <p style="color:var(--muted);margin-top:6px;">Não é uma lista de tarefas, mas um instrumento para verificar se você está enxergando o todo.</p>
+          
+          <div class="checklist-grid">
+            <div>
+              <h4 style="color:var(--primary); margin-bottom: 15px; border-bottom: 1px solid rgba(31,79,115,0.1); padding-bottom: 8px;">Dimensões Estratégicas e Humanas</h4>
+              <ul class="checklist">
+                <li><strong>Propósito e Alinhamento</strong><span> — Todos entendem e vivem o porquê da organização?</span></li>
+                <li><strong>Estratégia Sistêmica</strong><span> — As decisões consideram impactos em todas as áreas?</span></li>
+                <li><strong>Cultura de Colaboração</strong><span> — As áreas trabalham de forma integrada ou em silos?</span></li>
+                <li><strong>Liderança Sistêmica</strong><span> — Líderes pensam e agem considerando o todo?</span></li>
+                <li><strong>Engajamento Multidimensional</strong><span> — Pessoas se conectam com o propósito além do salário?</span></li>
+                <li><strong>Comunicação Integrada</strong><span> — A narrativa é consistente em todos os pontos de contato?</span></li>
+                <li><strong>Reputação como Ativo</strong><span> — A imagem externa reflete a realidade interna?</span></li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color:var(--primary); margin-bottom: 15px; border-bottom: 1px solid rgba(31,79,115,0.1); padding-bottom: 8px;">Dimensões Operacionais e Sistêmicas</h4>
+              <ul class="checklist">
+                <li><strong>Operações Alinhadas</strong><span> — Processos refletem e entregam a estratégia?</span></li>
+                <li><strong>Saúde Financeira Sistêmica</strong><span> — Resultados financeiros são consequência da saúde geral?</span></li>
+                <li><strong>Inovação Contínua</strong><span> — Existem mecanismos para evolução constante?</span></li>
+                <li><strong>Gestão de Riscos Integrada</strong><span> — Riscos são vistos de forma sistêmica?</span></li>
+                <li><strong>Sustentabilidade Real</strong><span> — Práticas ESG são autênticas e integradas?</span></li>
+                <li><strong>Governança Efetiva</strong><span> — Tomada de decisão é ética e transparente?</span></li>
+                <li><strong>Adaptabilidade</strong><span> — A organização se adapta a mudanças externas?</span></li>
+                <li><strong>Aprendizado Organizacional</strong><span> — Erros e acertos alimentam a evolução?</span></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="checklist-note">
+            <strong>Nota Fundamental:</strong> Este checklist não deve ser usado como lista de verificação tradicional. Cada item é um ponto de reflexão sobre como as diferentes partes da organização se conectam e influenciam umas às outras. A verdadeira gestão 360° acontece quando estes questionamentos se tornam parte do DNA decisório da organização.
+          </div>
+        </div>
+      </div>
+
+      <!-- ASIDE: Elementos de Apoio -->
+      <aside>
+        <div class="panel">
+          <h4>Indicadores de Saúde 360°</h4>
+          <div style="margin-top:12px; font-size:13px;">
+            <p><strong>Alinhamento Estratégico</strong><br>Como as áreas se conectam ao propósito</p>
+            <p><strong>Sinergia Organizacional</strong><br>Nível de colaboração entre departamentos</p>
+            <p><strong>Resiliência Sistêmica</strong><br>Capacidade de adaptação a crises</p>
+            <p><strong>Coerência Perceptiva</strong><br>Alinhamento entre imagem interna e externa</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h4>Armadilhas Comuns</h4>
+          <div style="font-size: 13px; margin-top: 12px;">
+            <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(31,79,115,0.1);">
+              <strong style="color:var(--primary); display:block;">Checklist sem Contexto</strong>
+              <span style="color:var(--muted);">Aplicar lista sem entender interdependências</span>
+            </div>
+            <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(31,79,115,0.1);">
+              <strong style="color:var(--primary); display:block;">Foco em Silos</strong>
+              <span style="color:var(--muted);">Otimizar áreas isoladamente</span>
+            </div>
+            <div>
+              <strong style="color:var(--primary); display:block;">Linearidade Excessiva</strong>
+              <span style="color:var(--muted);">Tratar processos como sequenciais simples</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h4>Perguntas Poderosas 360°</h4>
+          <div style="font-size: 13px; margin-top: 12px;">
+            <p><strong>•</strong> Como esta decisão afeta outras áreas?</p>
+            <p><strong>•</strong> O que estamos não enxergando?</p>
+            <p><strong>•</strong> Quais conexões estamos ignorando?</p>
+            <p><strong>•</strong> Como isso se conecta ao nosso propósito?</p>
+            <p><strong>•</strong> Que efeitos colaterais podemos criar?</p>
+          </div>
+        </div>
       </aside>
     </main>
 
